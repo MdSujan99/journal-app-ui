@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import api from "./api/axiosConfig";
+import { useEffect, useState } from "react";
+import Journal from "./component/Journal";
 
 function App() {
+  const [journals, setJournals] = useState([]);
+
+  const getJournals = async () => {
+    try {
+      const response = await api.get("/journal");
+      setJournals(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getJournals();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>All Journals</h1>
+      {journals.map((journal, index) => (
+        <div key={index} className="journal-container">
+          <Journal key={index} {...journal} />
+        </div>
+      ))}
     </div>
   );
 }
