@@ -1,22 +1,29 @@
-import { Link } from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import { NavLink } from "react-router-dom";
 
 function MainNav() {
   return (
-    <header>
-      <nav>
-        <ul>
-          <li>
-            <Link to={"/"}>Home</Link>
-          </li>
-          <li>
-            <Link to={"/about"}>About</Link>
-          </li>
-          <li>
-            <Link to={"/contact"}>Contact</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <Navbar bg="light" expand="lg">
+      <Container>
+        <Navbar.Brand>Journal App</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={NavLink} exact to="/" activeClassName="active">
+              Home
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/about" activeClassName="active">
+              About
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/contact" activeClassName="active">
+              Contact
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
