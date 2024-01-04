@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import api from "../api/axiosConfig";
 
 const Journal = ({
@@ -12,21 +13,26 @@ const Journal = ({
   journalEntryMap,
   onDelete,
 }) => {
+  const [showModal, setShowModal] = useState(false);
+
   const handleDeleteClick = async () => {
+    setShowModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
-      // Assuming you have a unique identifier for the journal, replace 'journalId' with the actual identifier
-      // Make a delete API call
       await api.delete(`/journal/${id}`);
-
-      // If the delete is successful, call the onDelete callback with true
       onDelete(true);
+      setShowModal(false);
     } catch (error) {
-      // If there's an error during delete, you can handle it here
       console.error("Error deleting journal:", error);
-
-      // Call the onDelete callback with false to indicate failure
       onDelete(false);
+      setShowModal(false);
     }
+  };
+
+  const handleCancelDelete = () => {
+    setShowModal(false);
   };
 
   return (
@@ -41,6 +47,24 @@ const Journal = ({
         <Button variant="danger" onClick={handleDeleteClick}>
           Delete
         </Button>
+
+        {/* Confirmation Modal */}
+        <Modal show={showModal} onHide={handleCancelDelete}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Deletion</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete the journal "{title}"?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCancelDelete}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleConfirmDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Card.Footer>
     </Card>
   );
