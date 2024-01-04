@@ -1,7 +1,11 @@
+// HomePage.js
+
 import api from "../../api/axiosConfig";
 import { useEffect, useState } from "react";
 import Journal from "../Journal";
 import { Row, Col, Container } from "react-bootstrap";
+import FormCreateNewJournal from "../FormCreateNewJournal";
+
 function HomePage() {
   const [journals, setJournals] = useState([]);
 
@@ -14,9 +18,17 @@ function HomePage() {
     }
   };
 
+  const handleJournalCreated = (success) => {
+    // If creation was successful, fetch all journals again
+    if (success) {
+      getJournals();
+    }
+  };
+
   useEffect(() => {
     getJournals();
   }, []);
+
   return (
     <Container className="App">
       <Row>
@@ -26,6 +38,7 @@ function HomePage() {
             <Journal {...journal} />
           </Col>
         ))}
+        <FormCreateNewJournal onJournalCreated={handleJournalCreated} />
       </Row>
     </Container>
   );
