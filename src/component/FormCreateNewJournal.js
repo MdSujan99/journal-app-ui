@@ -57,7 +57,9 @@ const FormCreateNewJournal = ({ onJournalCreated }) => {
         />
       </Form.Group>
 
-      <Button variant="primary" onClick={handleCreateJournal}>
+      <Button
+      className="mt-3"
+       variant="primary" onClick={handleCreateJournal}>
         Create Journal
       </Button>
     </Form>
