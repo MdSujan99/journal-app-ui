@@ -11,13 +11,13 @@ function MainNav() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} exact to="/">
+            <Nav.Link as={NavLink} to="/">
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink} exact to="/about">
+            <Nav.Link as={NavLink} to="/about">
               About
             </Nav.Link>
-            <Nav.Link as={NavLink} exact to="/contact">
+            <Nav.Link as={NavLink} to="/contact">
               Contact
             </Nav.Link>
           </Nav>
