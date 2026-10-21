@@ -12,7 +12,8 @@ function HomePage() {
   const getJournals = async () => {
     try {
       const response = await api.get("/journal");
-      setJournals(response.data);
+      const data = response.data?.payload ?? response.data;
+      setJournals(Array.isArray(data) ? data : []);
     } catch (err) {
       console.log(err);
     }
